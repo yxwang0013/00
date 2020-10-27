@@ -27,12 +27,10 @@ class Catalogue {
   }
   checkReorders() {
     const result = { type: "Reorder", productIds: [] };
-   this.products.forEach( (p) => {
-     if (p.quantityInStock <= p.reorderLevel) {
-       result.productIds.push(p.id);
-     }
-   });
-   return result;
- }
+    result.productIds = this.products
+      .filter((p) => p.quantityInStock < p.reorderLevel)
+      .map((p) => p.id);
+    return result;
+  }
 }
 module.exports = Catalogue;
